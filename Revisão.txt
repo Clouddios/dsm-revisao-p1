@@ -1,0 +1,78 @@
+Criar um container de MySql
+A. Utilizar uma imagem pronta do Docker Hub;
+R: docker pull mysql
+
+B. Container deve rodar na porta 3306
+C. A senha deve ser: DSM@123
+D. Nome do container: ct-db-mysql
+R:R: docker run --name ct-db-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=DSM@123 -d mysql
+
+3) Criar uma imagem para o backend
+B. Criar um Dockerfile para o backend;
+C. Receber os parâmetros da conexão via Dockerfile;
+D. Nome da imagem: im-api.
+R: docker build -t im-api .
+
+4) Criar um container para o backend
+A. O container deve rodar na porta 4000;
+B. Os parâmetros de conexão devem ser enviados na criação do container;
+C. Nome do container: ct-api
+R: docker run -p 4000:8080 --name ct-api -e MYSQL_HOST=host.docker.internal im-api
+
+5) Logs
+A. Avaliar os logs do container API;
+R: docker logs ct-api
+B. Avaliar os logs do container MySQL.
+R: docker logs ct-db-mysql
+
+6) Validar o funcionamento da API
+C. Utilizando o postman, criar uma collection com todas as requisições para testar os endpoints da API;
+
+-------------- POST --------------
+
+http://localhost:4000/api/tutorials
+
+{
+"title": "titulo",
+"description": "descrição",
+"published": true
+}
+
+-------------- GET --------------
+
+http://localhost:4000/api/tutorials
+
+[
+    {
+        "id": 1,
+        "title": "titulo",
+        "description": "descrição",
+        "published": 1
+    },
+    {
+        "id": 2,
+        "title": "titulo",
+        "description": "descrição",
+        "published": 1
+    },
+    {
+        "id": 3,
+        "title": "titulo",
+        "description": "descrição",
+        "published": 1
+    }
+]
+
+-------------- GET: id:1 --------------
+
+http://localhost:4000/api/tutorials/1
+
+{
+    "id": 1,
+    "title": "titulo",
+    "description": "descrição",
+    "published": 1
+}
+
+D. Testar o funcionamento;
+Exportar a collection e incluir no git junto com o restante do projeto.
