@@ -76,3 +76,12 @@ http://localhost:4000/api/tutorials/1
 
 D. Testar o funcionamento;
 Exportar a collection e incluir no git junto com o restante do projeto.
+
+7) Excluir os recursos docker
+Efetuar a remoção dos recursos criados no docker (imagens e containers), utilizando a linha de comando ao
+invés do Rancher Desktop.
+
+docker stop ct-api ct-db-mysql
+docker rm ct-api ct-db-mysql
+
+docker rmi im-api
